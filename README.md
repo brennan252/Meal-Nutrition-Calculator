@@ -3,8 +3,10 @@
 ## About
 This is a React.js App that estimates the nutrition data for an inputted meal.
 The user enters ingredient names and the weights of the ingredients in grams, ounces, or pounds.
+
 Once a collection of ingredients(or a "meal") is submitted, a table is displayed showing each ingredient's nutrition data
 as well as the nutrition data totals for the entire meal.
+
 If a user is unsure if an ingredient will be found in the database, they are given the option to check for close matches and then choose 
 the most accurate match. 
  
@@ -31,6 +33,7 @@ The exported Mariadb .sql file that has the setup commands and data to recreate 
 ### Data
 The data is a small subset of the USDA October 2020 data downloaded from this link: https://fdc.nal.usda.gov/download-datasets.html. 
 The R code used to manipulate and subset the source csv files is in './database/R' folder. This subsetted data was used to create the database.
+Add the USDA downloaded csv files to the 'R' folder before changing R code.
 
 ## Usage
 ### Build App Bundle
