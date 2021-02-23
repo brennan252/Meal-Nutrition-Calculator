@@ -1,0 +1,20 @@
+.bg {
+    background-image: url("src\\images\\leaf.jpg");
+    background-repeat: repeat;
+}
+
+.container_footer {
+    background-image: url("src\\images\\leaf.jpg");
+    background-repeat: repeat;
+    height: 600px;
+}
+
+$sizes: (
+    "width": 100%,
+    "height": 100%
+);
+
+// Using Cosmo theme from bootswatch.com
+@import "node_modules/bootswatch/dist/Cosmo/variables";
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootswatch/dist/Cosmo/bootswatch";
