@@ -13,7 +13,7 @@ the most accurate match.
 ## Demo
 A static version of the app can be accessed here: https://brennan252.github.io/Meal-Nutrition-Calculator-Demo/. 
 It is only meant to give an idea of the app's user interface experience.
-This app is not connected to any database so ALL data is computer generated. 
+This demo app is not connected to any database so ALL data is computer generated. 
 
 ## Code
 ### React
