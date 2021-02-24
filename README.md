@@ -53,7 +53,7 @@ Then access the app at the given url.
 
 ## Future Improvements
 **1. Automated Tests**
-The app has grown too complex to efficiently test each new iteration's edge case bugs using only the browser, and Google Chrome Devtools with the React component extension.
+The app has grown too complex to efficiently test each new iteration's edge case bugs using only the browser and Google Chrome Developer tools.
 A few automated tests should be written to test commonly buggy meal submissions and ingredient lookups.
 
 **2. Server Best Practices**
@@ -66,7 +66,7 @@ Sodium and a couple other nutritional data fields could be added and ultimately 
 
 **4. Expanded Quantity Options**
 Since not everyone is comfortable estimating the weight of their food, a volume or single serving option may be a good feature.
-Converting all volumes into weight with the same conversion factor for all foods would give highly innaccurate data. 
+Converting all volumes into weight with the same conversion factor for all foods would give innaccurate results. 
 This feature would require some sort of density variable for all foods in the database to accurately be achieved.
 
 **5. Meal Tracking**
