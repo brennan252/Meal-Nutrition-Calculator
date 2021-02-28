@@ -52,9 +52,9 @@ One way to do that is with the 'http-server' package. Install the package and en
 Then access the app at the given url.
 
 ## Future Improvements
-**1. Automated Tests**
+**1. End-to-End Tests**
 The app has grown too complex to efficiently test each new iteration's edge case bugs using only the browser and Google Chrome Developer tools.
-A few automated tests should be written to test commonly buggy meal submissions and ingredient lookups.
+A few tests should be written to test commonly buggy meal submissions and ingredient lookups.
 
 **2. Server Best Practices**
 - Some validation should be added to ensure SQL queries are safe. 
