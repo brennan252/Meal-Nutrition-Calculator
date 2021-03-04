@@ -1,0 +1,3 @@
+C:\Users\19164\source\repos\brennan252\Meal-Nutrition-Calculator\obj\Debug\MealCalculator.njsprojAssemblyReference.cache
+C:\Users\19164\source\repos\brennan252\Meal-Nutrition-Calculator\obj\Debug\MealCalculator.njsproj.CoreCompileInputs.cache
+C:\Users\19164\source\repos\brennan252\Meal-Nutrition-Calculator\bin\Microsoft.NodejsTools.WebRole.dll

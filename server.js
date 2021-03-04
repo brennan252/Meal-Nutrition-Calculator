@@ -28,7 +28,7 @@ const server = app.listen(app.get('port'), function () {
 
 
 // Keep as env variables in real use
-const DBhost = 'localhost'; 
+const DBhost = 'localhost';
 const DBuser = 'dbnodejsuser';
 const DBpassword = 'password';
 const DBdatabase = `fed_food_data`;
@@ -46,7 +46,7 @@ const DBport = 3306;
 app.get('/names/:foodNameSearch', function (req, res) {
     // Split foodNameSearch into individual words
     let words = req.params.foodNameSearch.split(" ");
-    
+
     // Create string for query 
     let queryString = "";
     let conditionString = "%\" AND !(CARBS LIKE \"%NA%\") AND !(PROTEINS LIKE \"%NA%\") AND!(FATS LIKE \"%NA%\") AND!(CALORIES LIKE \"%NA%\") )";
@@ -59,7 +59,7 @@ app.get('/names/:foodNameSearch', function (req, res) {
         } else {
             queryString = queryString.concat(selectString, word, conditionString, " INTERSECT ");
         }
-    });   
+    });
 
     // Connect to database
     mariadb.createConnection({
@@ -94,8 +94,8 @@ app.get('/names/:foodNameSearch', function (req, res) {
                     conn.end();
                 })
         });
-    
-   
+
+
 });
 
 
@@ -119,7 +119,7 @@ app.get('/mealdata/:ingredients', function (req, res) {
     let conditionString = "%\" AND !(CARBS LIKE \"%NA%\") AND !(PROTEINS LIKE \"%NA%\") AND!(FATS LIKE \"%NA%\") AND!(CALORIES LIKE \"%NA%\") LIMIT 1)";
     let conditionIDString = " AND !(CARBS LIKE \"%NA%\") AND !(PROTEINS LIKE \"%NA%\") AND!(FATS LIKE \"%NA%\") AND!(CALORIES LIKE \"%NA%\") LIMIT 1)";
     let selectNameString = "(SELECT * FROM `legacyfoodsmacrodata` WHERE NAME LIKE \"%";
- 
+
     let selectIDString = "(SELECT * FROM `legacyfoodsmacrodata` WHERE ID LIKE ";
 
     // For each ingredient: If the index is included, search by index. 
@@ -145,8 +145,8 @@ app.get('/mealdata/:ingredients', function (req, res) {
 
             }
 
-        } 
-    });   
+        }
+    });
 
     // Connect to database
     mariadb.createConnection({
@@ -192,4 +192,3 @@ app.get('/mealdata/:ingredients', function (req, res) {
                 })
         });
 });
-
