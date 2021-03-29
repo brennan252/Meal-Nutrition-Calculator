@@ -126,11 +126,21 @@ const NutritionResults = (Props: Props) => {
     calories.map((calorie) => totalCalories = totalCalories + calorie);
 
     // Render based on loading state
+    // add ErrorModal component on error
     if (isLoading) {
-        return <Spinner animation="border" variant="primary" />
-    } else {
         return (
-            <Card text="success" bg="light">
+            <div>
+                <Row className="justify-content-center" >
+                    <Spinner animation="border" variant="primary" />
+                </Row>
+                <Row className="justify-content-center" >
+                    <Button data-testid={"LoadingButton"} onClick={Props.onReset} variant="danger">Cancel</Button>
+                </Row>
+            </div>
+                )
+    } else if (showError) {
+        return (
+            <Card className="m-4 shadow" text="success" bg="light" data-testid="NutritionResults">
                 <Card.Body>
                     <Card.Title className={"font-weight-bolder"} style={{ textAlign: "center" }}>Nutrition Estimator</Card.Title>
                     <Modal show={showError} onHide={handleClose}>
@@ -140,56 +150,67 @@ const NutritionResults = (Props: Props) => {
                         <Modal.Body>Make sure all names and quantity fields are valid.</Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>
-                                Close
                         </Button>
                         </Modal.Footer>
                     </Modal>
-                    
-                    {!showError &&
-                        <Table striped bordered hover size="sm" variant="success" responsive>
-                            <thead>
-                                <tr>
-                                    <th>Ingredient</th>
-                                    <th>Weight (100 g)</th>
-                                    <th>Carbs (g)</th>
-                                    <th>Proteins (g)</th>
-                                    <th>Fats (g)</th>
-                                    <th>Calories (kcal)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {Props.indeces.map((i) =>
-                                    <tr>
-                                        <td>{ingredientNames[i - 1]}</td>
-                                        <td>{grams[i - 1].toFixed(2)}</td>
-                                        <td>{carbs[i - 1].toFixed(2)}</td>
-                                        <td>{proteins[i - 1].toFixed(2)}</td>
-                                        <td>{fats[i - 1].toFixed(2)}</td>
-                                        <td>{calories[i - 1].toFixed(2)}</td>
-                                    </tr>)}
-                                <tr>
-                                    <td>Totals</td>
-                                    <td>{totalGrams.toFixed(2)}</td>
-                                    <td>{totalCarbs.toFixed(2)}</td>
-                                    <td>{totalProteins.toFixed(2)}</td>
-                                    <td>{totalFats.toFixed(2)}</td>
-                                    <td>{totalCalories.toFixed(2)}</td>
-                                </tr>
-
-                            </tbody>
-                        </Table>
-                    }
-
                     <br />
                     <Row className="justify-content-center" >
-                        <Button variant="danger" onClick={Props.onReset}>
+                        <Button data-testid={"ErrorResetButton"} variant="danger" onClick={Props.onReset}>
                             Reset
                         </Button>
                     </Row>
 
                 </Card.Body>
             </Card>
+        )
+    } else {
+        return (
+            <Card className="m-4 shadow"  text="success" bg="light" data-testid="NutritionResults">
+                <Card.Body>
+                    <Card.Title className={"font-weight-bolder"} style={{ textAlign: "center" }}>Nutrition Estimator</Card.Title>
+                    
+                    <Table striped bordered hover size="sm" variant="success" responsive>
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Weight (100 g)</th>
+                                <th>Carbs (g)</th>
+                                <th>Proteins (g)</th>
+                                <th>Fats (g)</th>
+                                <th>Calories (kcal)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Props.indeces.map((i) =>
+                                <tr key={"IngredientData".concat(i.toString())}>
+                                    <td>{ingredientNames[i - 1]}</td>
+                                    <td>{grams[i - 1].toFixed(2)}</td>
+                                    <td>{carbs[i - 1].toFixed(2)}</td>
+                                    <td>{proteins[i - 1].toFixed(2)}</td>
+                                    <td>{fats[i - 1].toFixed(2)}</td>
+                                    <td>{calories[i - 1].toFixed(2)}</td>
+                                </tr>)}
+                            <tr>
+                                <td>Totals</td>
+                                <td>{totalGrams.toFixed(2)}</td>
+                                <td>{totalCarbs.toFixed(2)}</td>
+                                <td>{totalProteins.toFixed(2)}</td>
+                                <td>{totalFats.toFixed(2)}</td>
+                                <td>{totalCalories.toFixed(2)}</td>
+                            </tr>
 
+                        </tbody>
+                    </Table>
+
+                    <br />
+                    <Row className="justify-content-center" >
+                        <Button data-testid={"ResultsResetButton"}  variant="danger" onClick={Props.onReset}>
+                            Reset
+                        </Button>
+                    </Row>
+
+                </Card.Body>
+            </Card>
         )
     }
 };

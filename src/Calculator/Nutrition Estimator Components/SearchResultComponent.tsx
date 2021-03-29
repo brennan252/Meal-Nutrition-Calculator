@@ -18,7 +18,7 @@ type Props = {
 };
 
 
-export const SearchResultComponent = (Props: Props) => {
+const SearchResultComponent = (Props: Props) => {
     const [noMatch, setNoMatch] = React.useState(false);
     const [multipleMatch, setMultipleMatch] = React.useState(false);
     const [matchCount, setMatchCount] = React.useState(0 as number);
@@ -46,7 +46,7 @@ export const SearchResultComponent = (Props: Props) => {
                         newMultipleMatch = true;
                     }
 
-                    // One Match
+                    // One Match -> exit SearchResultComponent
                     if (result.matchCount === 1) {
                         Props.onSuccessSuggestion(Props.index, result.nameMatches[0], result.idMatches[0]);
                     }
@@ -59,7 +59,7 @@ export const SearchResultComponent = (Props: Props) => {
                     setMultipleMatch(newMultipleMatch);
                     setNoMatch(newNoMatch);
                 })
-                .then((res) => {
+                .then(() => {
                     setIsLoading(false);
                 });
         }
@@ -73,41 +73,46 @@ export const SearchResultComponent = (Props: Props) => {
                     <Spinner animation="border" variant="primary" />
                 </Form.Row>
                 <Form.Row className="justify-content-center" >
-                    <Button onClick={Props.onResetName} variant="danger">Cancel</Button>
+                    <Button data-testid={"LoadingButton"} onClick={Props.onResetName} variant="danger">Cancel</Button>
+                </Form.Row>
+            </div>)
+    } else if (noMatch) {
+        return (
+            <div>
+                <Form.Row className="justify-content-center align-items-center" >
+                    <Alert data-testid={"NoNamesMatch"}   variant="danger">No Matches Found for {Props.name} </Alert>
+                </Form.Row>
+                <Form.Row className="justify-content-center align-items-center" >
+                    <Button data-testid={"NoNamesMatchButton"}   onClick={Props.onResetName} variant="danger">Reset</Button>
+                </Form.Row>
+            </div>) 
+    } else if (multipleMatch) {
+        return (
+            <div>
+                <Form.Row className="justify-content-center align-items-center" >
+                    <Alert variant="info">Multiple Matches Found for {Props.name} </Alert>
+                </Form.Row>
+                <Form.Row className="justify-content-center align-items-center">
+                    <DropdownButton variant="secondary" text="light" title="Select A Name" >
+                        {matchNames.map((name) =>
+                            <Dropdown.Item key={Props.index.toString().concat('_', name)}
+                                eventKey={Props.index.toString().concat('_', name, '_', matchIDs[matchNames.indexOf(name)].toString())}
+                                onSelect={Props.onSuggestionSelect}>{name}</Dropdown.Item>)}
+                    </DropdownButton>
+                </Form.Row>
+                <br />
+                <Form.Row className="justify-content-center align-items-center" >
+                    <Button data-testid={"ResetMultipleMatch"}onClick={Props.onResetName} variant="danger">Reset</Button>
                 </Form.Row>
             </div>)
     } else {
         return (
             <div>
-                {noMatch &&
-                    <Form.Row className="justify-content-center align-items-center" >
-                        <Alert variant="danger">No Matches Found for {Props.name} </Alert>
-                    </Form.Row>}
-                {noMatch &&
-                    <Form.Row className="justify-content-center align-items-center" >
-                         <Button onClick={Props.onResetName} variant="danger">Reset</Button>
-                    </Form.Row>}
-
-
-                {multipleMatch &&
-                    <Form.Row className="justify-content-center align-items-center" >
-                        <Alert variant="info">Multiple Matches Found for {Props.name} </Alert>
-                    </Form.Row>}
-                {multipleMatch &&
-                    <Form.Row className="justify-content-center align-items-center">
-                        <DropdownButton variant="secondary" text="light" title="Select A Name" >
-                            {matchNames.map((name) =>
-                                <Dropdown.Item key={Props.index.toString().concat('_', name)}
-                                    eventKey={Props.index.toString().concat('_', name, '_', matchIDs[matchNames.indexOf(name)].toString())}
-                                    onSelect={Props.onSuggestionSelect}>{name}</Dropdown.Item>)}
-                        </DropdownButton>
-                    </Form.Row>}
-                {multipleMatch &&
-                    <br />}
-                {multipleMatch &&
-                    <Form.Row className="justify-content-center align-items-center" >  
-                        <Button onClick={Props.onResetName} variant="danger">Reset</Button>
-                    </Form.Row>}
+                <Form.Row className="justify-content-center align-items-center" >
+                    <Alert data-testid={"OneNameMatch"}  variant="danger">Something Went Wrong... Refresh Page.</Alert>
+                </Form.Row>
             </div>)
-        }
-    };
+    }
+};
+
+export default SearchResultComponent;

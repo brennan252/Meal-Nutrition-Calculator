@@ -10,8 +10,8 @@ const Calculator = React.lazy(() => import('./Calculator/Calculator'));
 
 function App() {
     return (
-        <Container fluid="true" className="bg">
-            <Navbar variant="dark" bg="dark" fluid="true">
+        <Container fluid="true" className="bgColor">
+            <Navbar className="navbarBg" fluid="true">
                 <Container className="m-0">
                     <Navbar.Brand className="m-0">
                     </Navbar.Brand>
@@ -21,14 +21,12 @@ function App() {
                 {<Container fluid className="justify-content-center">
                     <Spinner variant="success" />
                 </Container>}>
-                <Calculator/>
+                <Calculator initialShowResult={false} initialShowError={false} />
             </Suspense>
 
-            <Container fluid="true" className="container_footer">
-            </Container>
         </Container>
     );
-};
+}
 
 
 ReactDOM.render(

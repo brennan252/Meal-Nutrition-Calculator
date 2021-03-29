@@ -5,11 +5,17 @@
 
 import * as React from 'react';
 import { weightUnits } from './data';
-import NutritionEstimator  from './Nutrition Estimator Components/NutritionEstimator';
-import NutritionResults  from './Nutrition Result Components/NutritionResults';
-import { Container, Button, Modal, Row } from 'react-bootstrap';
+import ErrorModal from './Nutrition Estimator Components/ErrorModal';
+import NutritionEstimator from './Nutrition Estimator Components/NutritionEstimator';
+import NutritionResults from './Nutrition Result Components/NutritionResults';
+import { Container, Row } from 'react-bootstrap';
 
-const Calculator = () => {
+type Props = {
+    initialShowError: boolean;
+    initialShowResult: boolean;
+}
+
+const Calculator = (Props: Props) => {
     // State Hooks
     /////////////////////////////////////////////////////////////////////////////
     const [ingredientCount, setIngredientCount] = React.useState(1 as number);
@@ -23,8 +29,8 @@ const Calculator = () => {
     const [idArray, setIdArray] = React.useState([NaN] as Array<number>);// ID from DB
     const [validArray, setValidArray] = React.useState([false] as Array<boolean>);// If name is from DB
     const [disabledNamesArray, setDisabledNamesArray] = React.useState([false] as Array<boolean>);// disable named Input
-    const [showResult, setShowResult] = React.useState(false);
-    const [showError, setShowError] = React.useState(false);
+    const [showResult, setShowResult] = React.useState(Props.initialShowResult);
+    const [showError, setShowError] = React.useState(Props.initialShowError);
 
     // Callback Hooks
     //////////////////////////////////////////////////////////
@@ -264,7 +270,7 @@ const Calculator = () => {
     //
     // Assigns the foundName and foundID to the ingredient name and ID 
     // and set the name as valid.
-    const onOneNameFound = React.useCallback((ingredientId: number, foundName: string, foundId: number) => (event) => {
+    const onOneNameFound = React.useCallback((ingredientId: number, foundName: string, foundId: number) => {
         const newDisabledNames = disabledNamesArray;
         const newValids = validArray;
         const newIds = idArray
@@ -309,63 +315,60 @@ const Calculator = () => {
     }, [changeCount, disabledNamesArray, validArray, idArray, namesArray]);
 
 
-    // CALLBACK: handleClose
+    // Function: handleClose
     // Close error modal
     const handleClose = () => setShowError(false);
 
     // RENDER VIEW
     /////////////////////////////////////////////////////////////////////////
-
-    return (
-        <Container fluid>        
-                <Row className="justify-content-center" xs={1} sm={2} md={3} lg={3}>
+    if (showResult) {
+        return (
+            <Container fluid data-testid="CalculatorResultsViewContainer">
+                <Row className="justify-content-center" xs={1} sm={2} md={2} lg={3}>
                     <Container>
-                        <Modal show={showError} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Error!</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>Make sure all names and quantity fields are valid.</Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                    Close
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
-                        <br />
-                        {!showResult &&
-                            <NutritionEstimator
-                                count={ingredientCount}
-                                indeces={indexArray}
-                                names={namesArray}
-                                isValids={validArray}
-                                units={unitsArray}
-                                quantities={quantitiesArray}
-                                disabledNames={disabledNamesArray}
-                                onDelete={onIngredientDelete}
-                                onAdd={onIngredientAdd}
-                                onMealSubmit={onSubmit}
-                                onCheck={onNameCheck}
-                                onSuggestionSelect={onNameSuggestionSelect}
-                                onFound={onOneNameFound}
-                                onNameChange={onIngredientNameChange}
-                                onUnitsChange={onIngredientUnitsChange}
-                                onQuantityChange={onIngredientQuantityChange}
-                                onResetName={onIngredientNameReset}
-                            ></NutritionEstimator>}
-
-                        {showResult &&
-                            <NutritionResults
-                                indeces={indexArray}
-                                names={namesArray}
-                                IDs={idArray}
-                                quantities={quantitiesArray}
-                                units={unitsArray}
-                                onReset={onCalculatorReset}
-                            ></NutritionResults>}
+                        <NutritionResults
+                            indeces={indexArray}
+                            names={namesArray}
+                            IDs={idArray}
+                            quantities={quantitiesArray}
+                            units={unitsArray}
+                            onReset={onCalculatorReset}
+                        ></NutritionResults>
                     </Container>
                 </Row>
             </Container>
         );
+    } else {
+        return (
+            <Container fluid data-testid="CalculatorEstimatorViewContainer">
+                <Row className="justify-content-center" xs={1} sm={2} md={2} lg={3}>
+                    <Container>
+                        <ErrorModal isError={showError} onClose={handleClose} />
+                        
+                        <NutritionEstimator
+                            count={ingredientCount}
+                            indeces={indexArray}
+                            names={namesArray}
+                            isValids={validArray}
+                            units={unitsArray}
+                            quantities={quantitiesArray}
+                            disabledNames={disabledNamesArray}
+                            onDelete={onIngredientDelete}
+                            onAdd={onIngredientAdd}
+                            onMealSubmit={onSubmit}
+                            onCheck={onNameCheck}
+                            onSuggestionSelect={onNameSuggestionSelect}
+                            onFound={onOneNameFound}
+                            onNameChange={onIngredientNameChange}
+                            onUnitsChange={onIngredientUnitsChange}
+                            onQuantityChange={onIngredientQuantityChange}
+                            onResetName={onIngredientNameReset}
+                        ></NutritionEstimator>
+                    </Container>
+                </Row>
+            </Container>
+        );
+    };
 }
 
 export default Calculator;

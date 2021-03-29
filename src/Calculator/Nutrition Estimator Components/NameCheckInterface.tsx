@@ -6,7 +6,7 @@
 // disabled input and shows success.
 
 import * as React from 'react';
-import { SearchResultComponent } from './SearchResultComponent';
+import SearchResultComponent  from './SearchResultComponent';
 import { Alert, FormControl, Button,  Form, InputGroup } from 'react-bootstrap';
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
     interfaceName: string;
     interfaceIndex: number;
     isValid: boolean;
+    controlIDstring: string;
 
     onMatch: any;
     nameSuggestionSelect: any;
@@ -22,12 +23,11 @@ type Props = {
     onIngredientResetName: any;
 };
 
-export const NameCheckInterface = (Props: Props) => {
+const NameCheckInterface = (Props: Props) => {
     let inputEnabled = true;
     let showSuccess = false;
     let showSearchResult = false;
     
-    // Fix Logic For double display issues
     if (Props.interfaceNamesDisabled) {
         inputEnabled = false;
 
@@ -38,39 +38,53 @@ export const NameCheckInterface = (Props: Props) => {
         }
     };
 
-    return (
-        <div>
-            {inputEnabled &&
-                <InputGroup className="justify-content-center">
-                <FormControl className="" onChange={Props.onIngredientNameChange} placeholder="Enter Food Name" />
-                <InputGroup.Append>
-                    <Button onClick={Props.onIngredientIsValidCheck} className="" variant="success" text="light">Check</Button>
-                </InputGroup.Append>
-                </InputGroup>}
-
-            {showSuccess &&
-                <Form.Row className="justify-content-center">
-                    <Alert variant="success">Ingredient Found</Alert>
-                </Form.Row>}
-            {showSuccess &&
-                <InputGroup className="justify-content-center">
-                    <FormControl  type="text" placeholder={Props.interfaceName} readOnly/>
-                    <InputGroup.Append>
-                        <Button onClick={Props.onIngredientResetName} variant="danger">Reset</Button>
-                    </InputGroup.Append>
-                </InputGroup>}
-
-            {showSearchResult &&
-                <SearchResultComponent
-                name={Props.interfaceName}
-                index={Props.interfaceIndex}
-                onResetName={Props.onIngredientResetName}
-                onSuggestionSelect={Props.nameSuggestionSelect}
-                onSuccessSuggestion={Props.onMatch}
-                ></SearchResultComponent>}
-        </div>
-    )
+    if (inputEnabled) {
+        return (
+            <Form.Group data-testid={"NameCheckInterface"} key={Props.controlIDstring} controlId={Props.controlIDstring}>
+                <div>
+                    <InputGroup className="justify-content-center">
+                        <FormControl className="" onChange={Props.onIngredientNameChange} placeholder="Enter Food Name" />
+                        <InputGroup.Append>
+                            <Button data-testid={"isValidCheck"}onClick={Props.onIngredientIsValidCheck} className="" variant="success" text="light">Check</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </div>
+            </Form.Group>
+        )
+    } else if (showSuccess) {
+        return (
+            <Form.Group data-testid={"NameCheckInterface"} key={Props.controlIDstring} controlId={Props.controlIDstring}>
+                <div>
+                    <Form.Row className="justify-content-center">
+                        <Alert variant="success">Ingredient Found</Alert>
+                    </Form.Row>
+                    <InputGroup className="justify-content-center">
+                        <FormControl data-testid={"foundName"} type="text" placeholder={Props.interfaceName} readOnly />
+                        <InputGroup.Append>
+                            <Button data-testid={"resetName"} onClick={Props.onIngredientResetName} variant="danger">Reset</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </div>
+            </Form.Group>
+            )
+    } else if (showSearchResult) {
+        return (
+            <Form.Group data-testid={"NameCheckInterface"} key={Props.controlIDstring} controlId={Props.controlIDstring}>
+                <div>
+                    <SearchResultComponent
+                        name={Props.interfaceName}
+                        index={Props.interfaceIndex}
+                        onResetName={Props.onIngredientResetName}
+                        onSuggestionSelect={Props.nameSuggestionSelect}
+                        onSuccessSuggestion={Props.onMatch}
+                    ></SearchResultComponent>
+                </div>
+            </Form.Group>
+        )
+    }
 };
+
+export default NameCheckInterface;
 
 /*
 

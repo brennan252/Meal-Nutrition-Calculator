@@ -31,6 +31,34 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="babel.config.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\images\farm_overlay.jpg" />
+    <Content Include="src\images\overlay.jpg" />
+    <Content Include="__tests__\Estimator Components\error_modal.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="__tests__\Estimator Components\ingredient_input.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="__tests__\Estimator Components\name_check_interface.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="__tests__\Estimator Components\nutrition_estimator.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="__tests__\Estimator Components\search_result_component.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="__tests__\Results Component\nutrition_results.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <None Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.defaults">
+      <SubType>Content</SubType>
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
     <Content Include="database\fed_food_data_db_backup.sql" />
     <Content Include="dist\9e097ed372b783c675b3214ccf5a5c11.jpg" />
     <Content Include="dist\app-bundle.js" />
@@ -46,31 +74,48 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\images\leaf.jpg" />
+    <Content Include="src\images\leaf_overlay.jpg" />
     <Content Include="style.scss" />
     <Content Include="tsconfig.json" />
     <Content Include="webpack.common.js" />
     <Content Include="webpack.dev.js" />
     <Content Include="webpack.prod.js" />
+    <Content Include="__mocks__\fileMock.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="__mocks__\styleMock.js">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="database\" />
     <Folder Include="database\FedFoodData\" />
     <Folder Include="dist\" />
+    <Folder Include="__tests__\" />
+    <Folder Include="__mocks__\" />
     <Folder Include="src\" />
     <Folder Include="src\Calculator\" />
     <Folder Include="src\Calculator\Nutrition Estimator Components\" />
     <Folder Include="src\Calculator\Nutrition Result Components\" />
     <Folder Include="src\images\" />
+    <Folder Include="__tests__\Estimator Components\" />
+    <Folder Include="__tests__\Results Component\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\app.tsx" />
     <TypeScriptCompile Include="src\Calculator\Calculator.tsx" />
     <TypeScriptCompile Include="src\Calculator\data.tsx" />
+    <TypeScriptCompile Include="src\Calculator\Nutrition Estimator Components\ErrorModal.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Calculator\Nutrition Estimator Components\IngredientInput.tsx" />
     <TypeScriptCompile Include="src\Calculator\Nutrition Estimator Components\NameCheckInterface.tsx" />
     <TypeScriptCompile Include="src\Calculator\Nutrition Estimator Components\NutritionEstimator.tsx" />
     <TypeScriptCompile Include="src\Calculator\Nutrition Estimator Components\SearchResultComponent.tsx" />
     <TypeScriptCompile Include="src\Calculator\Nutrition Result Components\NutritionResults.tsx" />
+    <TypeScriptCompile Include="__tests__\calculator.test.js">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

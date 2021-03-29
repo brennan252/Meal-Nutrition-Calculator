@@ -31,16 +31,16 @@ type Props = {
 
 const NutritionEstimator = (Props: Props) => {
     return (
-        <Card bg="light" text="success">
+        <Card bg="light" text="success" className="m-4 shadow" data-testid="NutritionEstimator">
             <Card.Body>
-                <Card.Title className={"font-weight-bolder"}style={{ textAlign: "center" }}>Nutrition Calculator</Card.Title>
+                <Card.Title data-testid="EstimatorTitle" className={"font-weight-bolder"}style={{ textAlign: "center" }}>Nutrition Calculator</Card.Title>
                 <Form onSubmit={Props.onMealSubmit} className="justify-content-center align-items-center" >
-                    <Suspense fallback={
-                        <Container fluid="true" className="justify-content-center align-items-center">
+                    <Suspense  fallback={
+                        <Container key="ingredientInputSpinner" fluid="true" className="justify-content-center align-items-center">
                             <Spinner>Loading...</Spinner>
                         </Container>}>
                         {Props.indeces.map((i) => 
-                            <IngredientInput inputIndex={i} inputCount={Props.count} name={Props.names[i - 1]} valid={Props.isValids[i - 1]}  units={Props.units[i - 1]} quantity={Props.quantities[i - 1]}
+                            <IngredientInput  key={"IngredientInput".concat(i.toString())} inputIndex={i} inputCount={Props.count} name={Props.names[i - 1]} valid={Props.isValids[i - 1]}  units={Props.units[i - 1]} quantity={Props.quantities[i - 1]}
                                 onNameChange={Props.onNameChange(i - 1)} onResetName={Props.onResetName(i-1)} onIsValidCheck={Props.onCheck(i - 1)} 
                                 onQuantityChange={Props.onQuantityChange(i - 1)} onUnitsChange={Props.onUnitsChange} onNameSuggestionSelect={Props.onSuggestionSelect}
                                 onRemoveIngredient={Props.onDelete} onOneNameMatch={Props.onFound}
@@ -50,14 +50,14 @@ const NutritionEstimator = (Props: Props) => {
                     <br />
 
                     <Row className="justify-content-center  align-items-center" >
-                        <Button variant="dark" onClick={Props.onAdd}>
+                        <Button variant="dark" className="shadow" onClick={Props.onAdd} data-testid="onAddIngredient">
                             Add Ingredient
                         </Button>
                     </Row>
 
                     <br />
                     <Row className="justify-content-center  align-items-center"  >
-                        <Button variant="success" type="submit">
+                        <Button className="shadow" variant="success" type="submit" data-testid="onSubmitMeal">
                             Submit
                         </Button>
                     </Row>   
