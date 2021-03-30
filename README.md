@@ -37,11 +37,8 @@ Add the USDA downloaded csv files to the 'R' folder before changing R code.
 
 ## Usage
 ### Build App Bundle
-To rebuild the './dist/app-bundle.js' for production enter:
+To rebuild the './dist/app-bundle.js' enter:
 **npm run-script build**
-
-To rebuild the './dist/app-bundle.js' for development enter:
-**npm run-script start**
 
 ### Serve
 Serve the highest level folder with a valid './dist/appbundle.js' build.
