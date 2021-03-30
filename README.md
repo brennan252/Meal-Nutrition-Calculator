@@ -52,22 +52,18 @@ One way to do that is with the 'http-server' package. Install the package and en
 Then access the app at the given url.
 
 ## Future Improvements
-**1. End-to-End Tests**
-The app has grown too complex to efficiently test each new iteration's edge case bugs using only the browser and Google Chrome Developer tools.
-A few tests should be written to test commonly buggy meal submissions and ingredient lookups.
-
-**2. Server Best Practices**
+**1. Server Best Practices**
 - Some validation should be added to ensure SQL queries are safe. 
 - If many people are going to use the API, steps should be taken to ensure high availability. 
 - The API endpoints for the GET requests could be refactored into seperate express routers in new files. 
 
-**3. Expanded Nutritional Data Fields**
+**2. Expanded Nutritional Data Fields**
 Sodium and a couple other nutritional data fields could be added and ultimately lead to realistic nutrition and ingredient label generation.
 
-**4. Expanded Quantity Options**
+**3. Expanded Quantity Options**
 Since not everyone is comfortable estimating the weight of their food, a volume or single serving option may be a good feature.
 Converting all volumes into weight with the same conversion factor for all foods would give innaccurate results. 
 This feature would require some sort of density variable for all foods in the database to accurately be achieved.
 
-**5. Meal Tracking**
+**4. Meal Tracking**
 Adding historical meal tracking would allow this app to be used as a personal diet journal.
